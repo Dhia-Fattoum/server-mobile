@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 var fileupload = require("express-fileupload");
+var cloudinary = require("cloudinary").v2;
+
 
 require('dotenv').config()
 
@@ -17,7 +19,6 @@ app.use(fileupload({
   useTempFiles: true,
 }));
 
-var cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name:'vic2021',
   api_key: '434786848137159',
@@ -54,7 +55,7 @@ app.use('/Comment',require("./routes/comment.js"));
 app.use('/Like',require("./routes/like.js"));
 
 app.get('/', function (req,res) {
-  res.send('Hello');
+  res.send('');
 });
 
 

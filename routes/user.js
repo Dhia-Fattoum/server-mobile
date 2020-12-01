@@ -25,13 +25,13 @@ router.get('/', async (req, res) => {
         lastName: req.body.lastName,
         userName:req.body.userName,
         email: req.body.email,
-         password: hashPassword,
-          dateOfBirth: req.body.dateOfBirth, 
-           phoneNumber: req.body.phoneNumber,
-            description: req.body.description,
-            QrCode: req.body.QrCode,
-              profileImage: req.body.profileImage,
-               coverImage: req.body.coverImage,
+        password: hashPassword,
+        dateOfBirth: req.body.dateOfBirth, 
+        phoneNumber: req.body.phoneNumber,
+        description: req.body.description,
+        QrCode: req.body.QrCode,
+        profileImage: req.body.profileImage,
+        coverImage: req.body.coverImage,
     }).then((user) => res.json(user));
     console.log(user);
   });
