@@ -24,8 +24,9 @@ cloudinary.config({
   api_secret: '2SNCTyZOAMHIKCtYRmVuXqy-o_Y',
 })
 
-app.post("/upload", function(req, res, next) {
-  const file = req.files.photo;
+app.post("/uploadImage", function(req, res, next) {
+  // console.log(req)
+  const file = req.body;
   console.log(file);
   cloudinary.uploader.upload(file.tempFilePath, function(err, result) {
        res.send ({

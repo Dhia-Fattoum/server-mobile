@@ -33,6 +33,7 @@ router.get('/', async (req, res) => {
               profileImage: req.body.profileImage,
                coverImage: req.body.coverImage,
     }).then((user) => res.json(user));
+    console.log(user);
   });
   router.post("/login", async (req, res) => {
     const user = await User.findOne({ where: { email: req.body.email } });
