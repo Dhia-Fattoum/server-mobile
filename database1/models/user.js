@@ -1,4 +1,4 @@
-  'use strict';
+'use strict';
 const {
   Model
 } = require('sequelize');
@@ -10,25 +10,23 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
       User.hasMany(models.Post, {
         foreignKey: 'userId',
         onDelete: 'CASCADE'
       })
-      User.hasMany(models.Comment,{
-        foreignKey: 'userId',
-        onDelete: 'CASCADE'
-      })
-      User.hasMany(models.Like,{
-        foreignKey: 'userId',
-        onDelete: 'CASCADE'
-      })
-      User.hasMany(models.Media,{
-        foreignKey: 'userId',
-        onDelete: 'CASCADE'
+      // User.hasMany(models.Comment,{
+      //   foreignKey: 'userId',
+      //   onDelete: 'CASCADE'
+      // })
+      // User.hasMany(models.Like,{
+      //   foreignKey: 'userId',
+      //   onDelete: 'CASCADE'
+      // })
+      
+      User.belongsToMany(models.Conversation,{
+        through: 'UserConversations' 
       })
     }
-
   };
   User.init({
     firstName: DataTypes.STRING,
@@ -39,9 +37,14 @@ module.exports = (sequelize, DataTypes) => {
     dateOfBirth: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
     description: DataTypes.STRING,
-    QrCode: DataTypes.STRING,
+    isActif: DataTypes.BOOLEAN,
     profileImage: DataTypes.STRING,
-    coverImage: DataTypes.STRING
+    coverImage: DataTypes.STRING,
+    messageId: DataTypes.STRING  ,
+    address: DataTypes.STRING,
+    city: DataTypes.STRING,
+    country: DataTypes.STRING,
+    zipCode: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'User',

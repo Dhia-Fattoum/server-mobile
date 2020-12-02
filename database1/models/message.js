@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Media extends Model {
+  class Message extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,20 +11,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Media.belongsTo(models.Post, {
-        foreignKey: 'postId',
+      Message.belongsTo(models.User, {
+        foreignKey: 'userId',
         onDelete: 'CASCADE'
-      })
-    }
-  };
-  Media.init({
-    fileUrl: DataTypes.STRING,
-    duration: DataTypes.INTEGER,
-    isVideo: DataTypes.BOOLEAN,
-    postId: DataTypes.INTEGER
+    })
+    Message.belongsTo(models.Conversation, {
+      foreignKey: 'conversationId',
+    })
+  }
+}
+  Message.init({
+    userId: DataTypes.INTEGER,
+    content: DataTypes.STRING,
+    conversationId: DataTypes.INTEGER,
+    fileUrl: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Media',
+    modelName: 'Message',
   });
-  return Media;
+  return Message;
 };

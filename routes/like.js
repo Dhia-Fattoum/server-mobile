@@ -16,7 +16,7 @@ router.post('/addLike', async(req, res) => {
         .catch((err) => console.log(err))
 })
 
-//get all likes
+//get all likes by post id
 router.get('/getLike', async(req, res) => {
     await Like.findAll().then((like) => res.json(like))
         .catch((err) => console.log(err))

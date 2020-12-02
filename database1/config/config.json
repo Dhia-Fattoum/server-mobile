@@ -1,7 +1,7 @@
 {
   "development": {
     "host": "b7ntfkr2a8u3hwajcm3s-mysql.services.clever-cloud.com",
-    "user": "uvullsjgrdrwg4q3",
+    "username": "uvullsjgrdrwg4q3",
     "password": "lCrNLDAxMglq1SQrckm1",
     "database": "b7ntfkr2a8u3hwajcm3s",
     "dialect": "mysql"

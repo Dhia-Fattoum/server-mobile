@@ -11,7 +11,7 @@ router.get('/', async(req, res) => {
 })
 
 
-//get comments by id
+//get comments by post id
 router.get('/:id', async(req, res) => {
     await Comment.findByPk(req.params.id).then((comments) => res.json(comments))
         .catch((err) => console.log(err))
@@ -57,13 +57,7 @@ router.delete('/:id', async(req, res) => {
 });
 
 
-//delete comments for a specific userId
-router.delete('/', async(req, res) => {
-    const userId=req.body.userId;
-    var condition = userId ? { userId: { [Op.like]: `%${userId}%` } } : null;
-    await Comment.destroy({ where: {condition}, truncate: true }).then(() => res.json("cleared"))
-        .catch((err) => console.log(err))
-});
+
 
 
 module.exports = router;
