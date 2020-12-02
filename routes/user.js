@@ -82,10 +82,10 @@ router.get('/', async (req, res) => {
       res.send(user)     
     }else if(req.body.phoneNumber!=="" && req.body.email ==='' && req.body.userName
      ===''){
-      const user = await User.findOne({ where: {email: req.body.phoneNumber} });
+      const user = await User.findOne({ where: {phoneNumber: req.body.phoneNumber} });
       if (!user) return res.status(400).send("Invalid userName");
       const validPass = await bcrypt.compare(req.body.password, user.password);
-      if(validPass.length!==8) return res.status(400).send("your password should have 8 characters");
+      if(validPass.length<8) return res.status(400).send("your password should have 8 characters");
       else if (!validPass) return res.status(400).send("Invalid password ");      
       res.send(user) 
     }
