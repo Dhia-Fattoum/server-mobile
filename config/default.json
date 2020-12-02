@@ -1,0 +1,29 @@
+{
+  "development": {
+    "host": "b7ntfkr2a8u3hwajcm3s-mysql.services.clever-cloud.com",
+    "username": "uvullsjgrdrwg4q3",
+    "password": "lCrNLDAxMglq1SQrckm1",
+    "database": "b7ntfkr2a8u3hwajcm3s",
+    "dialect": "mysql"
+  },
+  "cloudinary.config" :{
+    "cloud_name": "vic2021"  ,
+    "api_key":"434786848137159 ",
+   "api_secret":"2SNCTyZOAMHIKCtYRmVuXqy-o_Y"     
+  },
+
+  "test": {
+    "username": "root",
+    "password": "12345",
+    "database": "vic",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "12345",
+    "database": "vic",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

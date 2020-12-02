@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 const config = require('config');
-const dbConfig = config.get('postgres');
+const dbConfig = config.get('development');
 
-const sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, {
-    host:dbConfig.host,
+const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
+    host: dbConfig.host,
     dialect: 'mysql',
     logging: false,
 });

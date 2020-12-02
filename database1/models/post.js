@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const { post } = require('../../routes/User');
+
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
    
