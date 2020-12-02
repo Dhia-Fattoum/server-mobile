@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const bcrypt = require('bcryptjs');
 const {User} = require('../database1/models')
@@ -67,34 +67,36 @@ router.get('/', async (req, res) => {
 
 
   router.post("/login", async (req, res) => {
+    console.log(req.body)
+    let user;
+    
 
-    if(req.body.userName!=="" && req.body.email==="" && req.body.phoneNumber ==="") {
-    const user = await User.findOne({ where: {userName: req.body.userName} });
-    if (!user) return res.status(400).send("Invalid userName");
-    const validPass = await bcrypt.compare(req.body.password, user.password);
-    if(validPass.length!==8) return res.status(400).send("your password should have 8 characters");
-    else if (!validPass) return res.status(400).send("Invalid password ");
-    // const token = jwt.sign({ id: user.id }, "" +process.env.SECRET_TOKEN);
-    //res.header('auth_token',token).send({'token':token , 'id':user.id})
-    res.send(user)
-    // console.log(token)
+    if (req.body.userName!=="" && req.body.email==="" && req.body.phoneNumber === null) {
+        user = await User.findOne({ where: {userName: req.body.userName} });
+        if (!user) {return res.status(400).send("Invalid userName");}  
+        const validPass = await bcrypt.compare(req.body.password, user.password);        
+        if (!validPass) return res.status(400).send("Invalid password ");     
+       
+       res.send(user) 
 
-    }else if(req.body.email!=="" && req.body.userName ==="" && req.body.phoneNumber ===""){
+    }else if(req.body.email!=="" && req.body.userName ==="" && req.body.phoneNumber === null){
 
-      const user = await User.findOne({ where: {email: req.body.email} });
+       user = await User.findOne({ where: {email: req.body.email} });
       if (!user) return res.status(400).send("Invalid userName");
-      const validPass = await bcrypt.compare(req.body.password, user.password);
-      if(validPass.length!==8) return res.status(400).send("your password should have 8 characters");
-      else if (!validPass) return res.status(400).send("Invalid password ");      
+      const validPass = await bcrypt.compare(req.body.password, user.password);      
+       if (!validPass) return res.status(400).send("Invalid password ");
+      
+            
       res.send(user)     
 
-    }else if(req.body.phoneNumber!=="" && req.body.email ==="" && req.body.userName ===""){
+    }else if(req.body.phoneNumber!== null && req.body.email ==="" && req.body.userName ===""){
 
-      const user = await User.findOne({ where: {phoneNumber: req.body.phoneNumber} });
-      if (!user) return res.status(400).send("Invalid userName");
-      const validPass = await bcrypt.compare(req.body.password, user.password);
-      if(validPass.length!==8) return res.status(400).send("your password should have 8 characters");
-      else if (!validPass) return res.status(400).send("Invalid password ");      
+       user = await User.findOne({ where: {phoneNumber: req.body.phoneNumber} });
+      if (!user) {return res.status(400).send("Invalid userName");}
+      const validPass = await bcrypt.compare(req.body.password, user.password);      
+       if (!validPass) return res.status(400).send("Invalid password ");
+      
+         
       res.send(user) 
 
     }
