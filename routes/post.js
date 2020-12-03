@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const {Post} = require('../database1/models')
+const {Post,User} = require('../database1/models')
 const Sequelize = require('sequelize');
 
 
 
 //get all posts 
 router.get('/', async(req, res) => {
-    await Post.findAll().then((post) => res.json(post))
+    await Post.findAll({
+        include: {model:User}
+    }).then((post) => res.json(post))
         .catch((err) => console.log(err))
 })
 
@@ -20,6 +22,8 @@ router.get('/myPost/:id', async(req, res) => {
       where: { userid: req.params.id},
       include: {
       model: User, 
+      required: true,
+      attributes:["userName","profileImage"]
 },
       })     
         console.log(postId);
