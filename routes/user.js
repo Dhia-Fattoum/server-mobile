@@ -4,7 +4,6 @@ const router = express.Router();
 const dotenv = require("dotenv");
 const bcrypt = require('bcryptjs');
 const {User} = require('../database1/models')
-dotenv.config();
 router.get('/', async (req, res) => {
     await User.findAll().then((users) => res.json(users))
   })
@@ -81,12 +80,14 @@ router.get('/', async (req, res) => {
     }else if(req.body.email!=="" && req.body.userName ==="" && req.body.phoneNumber === null){
 
        user = await User.findOne({ where: {email: req.body.email} });
+
       if (!user) return res.status(400).send("Invalid userName");
       const validPass = await bcrypt.compare(req.body.password, user.password);      
        if (!validPass) return res.status(400).send("Invalid password ");
       
             
       res.send(user)     
+
 
     }else if(req.body.phoneNumber!== null && req.body.email ==="" && req.body.userName ===""){
 
@@ -96,6 +97,7 @@ router.get('/', async (req, res) => {
        if (!validPass) return res.status(400).send("Invalid password ");
       
          
+
       res.send(user) 
 
     }
