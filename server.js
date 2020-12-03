@@ -5,7 +5,7 @@ const app = express();
 const server = require("http").createServer(app);
 const PORT =process.env.PORT || 3000; 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/User', require("./routes/user.js"));
