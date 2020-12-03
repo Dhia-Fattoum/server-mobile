@@ -7,15 +7,16 @@ const Op = Sequelize.Op;
 // get all conv by user id
 router.get("/myConversation/:userId", async (req, res) => {
   await Conversation.findAll({
-    where: { userId: req.params.userId },
-  }).then((conversation) => res.json(conversation));
+    where:{id:req.params.userId},include: {model:User,required: true},
+  }).then((conversation) => res.json(conversation))
+    .catch((err) => console.log(err));
 });
 //get conv by conv id
 router.get("/:id", async (req, res) => {
   await Conversation.findByPk(req.params.id)
     .then((conversation) => res.json(conversation))
     .catch((err) => console.log(err));
-});
+}); 
 //add new conversation
 router.post("/addConversation", async (req, res) => {
   try {
