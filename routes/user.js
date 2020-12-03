@@ -9,8 +9,9 @@ router.get('/', async (req, res) => {
   })
   router.get('/:id', async (req, res) => {
     console.log(User)
-      await User.findOne({ id: req.params.id })
+      await User.findOne({where:{ id: req.params.id }})
   })
+  //
   router.post("/SignUp", async (req, res) => {
     console.log(req.body)
     if(req.body.userName=== ""&& req.body.email==="" && req.body.phoneNumber===""){
@@ -67,10 +68,9 @@ router.get('/', async (req, res) => {
 
   router.post("/login", async (req, res) => {
     console.log(req.body)
-    let user;
-    
+    let user;   
 
-    if (req.body.userName!=="" && req.body.email==="" && req.body.phoneNumber === null) {
+    if (req.body.userName !=="" && req.body.email=== "" && req.body.phoneNumber === null) {
         user = await User.findOne({ where: {userName: req.body.userName} });
         if (!user) {return res.status(400).send("Invalid userName");}  
         const validPass = await bcrypt.compare(req.body.password, user.password);        
