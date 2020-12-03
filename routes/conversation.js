@@ -6,6 +6,7 @@ const Op = Sequelize.Op;
 
 // get all conv by user id
 router.get("/myConversation/:userId", async (req, res) => {
+  console.log(req.params.userId)
   await Conversation.findAll({
     where: { userId: req.params.userId },
   }).then((conversation) => res.json(conversation));
