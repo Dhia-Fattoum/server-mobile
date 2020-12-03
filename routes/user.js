@@ -14,6 +14,7 @@ router.get('/', async (req, res) => {
       res.json(user)
     })
   //
+  //
   router.post("/SignUp", async (req, res) => {
     console.log(req.body)
     if(req.body.userName=== ""&& req.body.email==="" && req.body.phoneNumber===""){
