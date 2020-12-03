@@ -9,8 +9,10 @@ router.get('/', async (req, res) => {
   })
   router.get('/:id', async (req, res) => {
     console.log(User)
-      await User.findOne({where:{ id: req.params.id }})
-  })
+      const user =await User.findOne({where:{ id: req.params.id }})
+      if(!user) return res.status(400).send("no user found")
+      res.json(user)
+    })
   //
   router.post("/SignUp", async (req, res) => {
     console.log(req.body)
