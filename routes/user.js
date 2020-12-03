@@ -11,6 +11,7 @@ router.get('/', async (req, res) => {
     console.log(User)
       await User.findOne({where:{ id: req.params.id }})
   })
+  //
   router.post("/SignUp", async (req, res) => {
     console.log(req.body)
     if(req.body.userName=== ""&& req.body.email==="" && req.body.phoneNumber===""){
