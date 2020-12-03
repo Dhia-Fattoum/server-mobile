@@ -8,7 +8,8 @@ const Sequelize = require('sequelize');
 //get all posts 
 router.get('/', async(req, res) => {
     await Post.findAll({
-        include: {model:User}
+        include: {model:User,required: true,
+            attributes:["userName","profileImage"]}
     }).then((post) => res.json(post))
         .catch((err) => console.log(err))
 })
