@@ -14,7 +14,7 @@ router.get('/', async(req, res) => {
 //get comments by post id
 router.get("/showComments/:PostId", async (req, res) => {
     await Comment.findAll({
-      where: { PostId: req.params.PostId },include: {model:Post,required: true},
+      where: { PostId: req.params.PostId},include: {model:Post,required: true},
     }).then((post) => res.json(post))
       .catch((err) => console.log(err));
   });
