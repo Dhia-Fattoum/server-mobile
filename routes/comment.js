@@ -19,7 +19,7 @@ router.get("/showComments/:PostId", async (req, res) => {
       .catch((err) => console.log(err));
   });
 
-//add a comment
+//add a comment//
 router.post('/addComment', async(req, res) => {
     console.log(req.body)
     await Comment.create({

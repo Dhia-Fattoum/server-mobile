@@ -7,22 +7,28 @@ const Op = Sequelize.Op;
 // get all conv by user id
 router.get("/myConversation/:userId", async (req, res) => {
   console.log(req.params.userId);
-  await Conversation.findAll({
-
-
-    include: { model: User, required: true,attributes:["userName","profileImage"] },
-
-
+  Conversation.findAll({
+    include: { model: User, required: true },
     where: { "$Users->UserConversations.userId$": req.params.userId },
-  }).then((conversation) => res.json(conversation));
-
+  }).then((conversation) => {
+    console.log(conversation);
+    if (conversation.length === 0) return res.json([]);
+    const conv = conversation.map((c) => c.id);
+    User.findAll({
+      include: { model: Conversation, required: true },
+      where: { "$Conversations.id$": conv },
+    }).then((ress) => {
+      console.log(ress);
+      res.json(ress);
+    }).catch((err) => console.log(err));
+  });
 });
 //get conv by conv id
 router.get("/:id", async (req, res) => {
   await Conversation.findByPk(req.params.id)
     .then((conversation) => res.json(conversation))
     .catch((err) => console.log(err));
-}); 
+});
 //add new conversation
 router.post("/addConversation", async (req, res) => {
   try {
@@ -34,12 +40,11 @@ router.post("/addConversation", async (req, res) => {
       where: { id: userId },
       include: { model: Conversation, required: true },
     });
-   // return res.json(convUser)
+    // return res.json(convUser)
     if (!convUser) {
-      let checkTarget = await User.findByPk(targetId)
-      if (!checkTarget)
-        return res.status(400).send("target err");
-        console.log(789);
+      let checkTarget = await User.findByPk(targetId);
+      if (!checkTarget) return res.status(400).send("target err");
+      console.log(789);
       const conv = await Conversation.create({});
       const recever = await User.findByPk(targetId);
       const sender = await User.findByPk(userId);
@@ -54,7 +59,7 @@ router.post("/addConversation", async (req, res) => {
       where: { id: targetId, "$Conversations.id$": convUser },
       include: { model: Conversation, required: true },
     });
-    
+
     if (!convTarget) {
       const conv = await Conversation.create({});
       const recever = await User.findByPk(targetId);
@@ -64,7 +69,6 @@ router.post("/addConversation", async (req, res) => {
       console.log(123);
       return res.json(conv.id);
     } else {
-      
       return res.json(convTarget.Conversations[0].id);
     }
   } catch (error) {
@@ -85,7 +89,7 @@ router.delete("/:id", async (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.get('/', async (req, res) => {
-  await Conversation.findAll().then((users) => res.json(users))
-})
+router.get("/", async (req, res) => {
+  await Conversation.findAll().then((users) => res.json(users));
+});
 module.exports = router;
