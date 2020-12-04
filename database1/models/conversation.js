@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Conversation.belongsToMany(models.User, {
         through: "UserConversations",
+        // foreignKey:'userId'
       });
       Conversation.hasMany(models.Message, {
         foreignKey: "conversationId",
