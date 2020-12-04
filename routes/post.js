@@ -14,8 +14,6 @@ router.get('/', async(req, res) => {
         .catch((err) => console.log(err))
 })
 
-
-
 //get posts by user id//
 // router.get('/userPost/:userId', async(req, res) => {
 //     console.log(req.params.userId)
@@ -67,6 +65,7 @@ router.get("/userPost/:userId", async (req, res) => {
 //         return res.status(500).send(error+"sdfsodfsdf")
 //     }
 // })
+
 //add a post
 router.post('/addPost', async(req, res) => {
     try{
