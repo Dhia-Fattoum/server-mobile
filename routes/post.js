@@ -17,10 +17,10 @@ router.get('/', async(req, res) => {
 
 
 //get post by user id//
-router.get('/myPost/:id', async(req, res) => {
+router.get('/myPost/:userId', async(req, res) => {
     try{
       const postId = await Post.findByPk({
-      where: { userid: req.params.id},
+      where: { userId: req.params.userId},
       include: {
       model: User, 
       required: true,
