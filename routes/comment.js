@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Comment} = require('../database1/models')
+const {Comment,Post} = require('../database1/models')
 const Sequelize = require('sequelize');
 const Op=Sequelize.Op
 
@@ -12,11 +12,12 @@ router.get('/', async(req, res) => {
 
 
 //get comments by post id
-router.get('/:id', async(req, res) => {
-    await Comment.findByPk(req.params.id).then((comments) => res.json(comments))
-        .catch((err) => console.log(err))
-})
-
+router.get("/showComments/:PostId", async (req, res) => {
+    await Comment.findAll({
+      where: { PostId: req.params.PostId },include: {model:Post,required: true},
+    }).then((post) => res.json(post))
+      .catch((err) => console.log(err));
+  });
 
 //add a comment
 router.post('/addComment', async(req, res) => {
