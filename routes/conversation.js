@@ -8,21 +8,21 @@ const Op = Sequelize.Op;
 router.get("/myConversation/:userId", async (req, res) => {
   console.log(req.params.userId);
   await Conversation.findAll({
-    include: {
-      model: User,
-      required: true,
-      attributes: ["userName", "profileImage"],
-    },
+
+
+    include: { model: User, required: true,attributes:["userName","profileImage"] },
+
 
     where: { "$Users->UserConversations.userId$": req.params.userId },
   }).then((conversation) => res.json(conversation));
+
 });
 //get conv by conv id
 router.get("/:id", async (req, res) => {
   await Conversation.findByPk(req.params.id)
     .then((conversation) => res.json(conversation))
     .catch((err) => console.log(err));
-});
+}); 
 //add new conversation
 router.post("/addConversation", async (req, res) => {
   try {
