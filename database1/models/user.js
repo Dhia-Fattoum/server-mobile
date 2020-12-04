@@ -14,14 +14,24 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         onDelete: 'CASCADE'
       })
-      // User.hasMany(models.Comment,{
-      //   foreignKey: 'userId',
-      //   onDelete: 'CASCADE'
-      // })
-      // User.hasMany(models.Like,{
-      //   foreignKey: 'userId',
-      //   onDelete: 'CASCADE'
-      // })
+      this.hasMany(models.Followers, {
+        foreignKey: 'followedId',
+        as: 'followers',
+        onDelete: 'CASCADE'
+      });
+      this.hasMany(models.Followers, {
+        foreignKey: 'followerId',
+        as: 'following',
+        onDelete: 'CASCADE'
+      });
+      User.hasMany(models.Comment,{
+        foreignKey: 'userId',
+        onDelete: 'CASCADE'
+      })
+      User.hasMany(models.Like,{
+        foreignKey: 'userId',
+        onDelete: 'CASCADE'
+      })
       
       User.belongsToMany(models.Conversation,{
         through: 'UserConversations' 

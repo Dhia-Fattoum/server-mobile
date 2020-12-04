@@ -12,7 +12,7 @@ const io = require("socket.io")(server, {
   },
 });
 
-
+//socket connect
 io.on("connection", socket => {
     console.log("a user connected :D");
     socket.on("chat message", msg => {
