@@ -14,18 +14,25 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         onDelete: 'CASCADE'
       })
-      // User.hasMany(models.Comment,{
-      //   foreignKey: 'userId',
-      //   onDelete: 'CASCADE'
-      // })
-      // User.hasMany(models.Like,{
-      //   foreignKey: 'userId',
-      //   onDelete: 'CASCADE'
-      // })
-      // User.hasMany(models.Media,{
-      //   foreignKey: 'userId',
-      //   onDelete: 'CASCADE'
-      // })
+      User.hasMany(models.Followers, {
+        foreignKey: 'followedId',
+        as: 'followers',
+        onDelete: 'CASCADE'
+      });
+      User.hasMany(models.Followers, {
+        foreignKey: 'followerId',
+        as: 'following',
+        onDelete: 'CASCADE'
+      });
+      User.hasMany(models.Comment,{
+        foreignKey: 'userId',
+        onDelete: 'CASCADE'
+      })
+      User.hasMany(models.Like,{
+        foreignKey: 'userId',
+        onDelete: 'CASCADE'
+      })
+      
       User.belongsToMany(models.Conversation,{
         through: 'UserConversations' 
       })
@@ -43,7 +50,11 @@ module.exports = (sequelize, DataTypes) => {
     isActif: DataTypes.BOOLEAN,
     profileImage: DataTypes.STRING,
     coverImage: DataTypes.STRING,
-    messageId: DataTypes.STRING  
+    messageId: DataTypes.STRING  ,
+    address: DataTypes.STRING,
+    city: DataTypes.STRING,
+    country: DataTypes.STRING,
+    zipCode: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'User',

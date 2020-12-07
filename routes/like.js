@@ -11,16 +11,19 @@ router.post('/addLike', async(req, res) => {
     await Like.create({
             PostId: req.body.PostId,
             userId: req.body.userId,
+            like : req.body.like,
         })
         .then((likes) => res.json(likes))
         .catch((err) => console.log(err))
 })
 
-//get all likes
-router.get('/getLike', async(req, res) => {
-    await Like.findAll().then((like) => res.json(like))
-        .catch((err) => console.log(err))
-})
+//get all likes by post id
+router.get("/likes/:userId", async (req, res) => {
+    await Like.findAll({
+      where: { postId: req.params.postId },
+    }).then((like) => res.json(like))
+      .catch((err) => console.log(err));
+  });
 
 //delete like
 router.delete('/:id', async(req, res) => {
@@ -33,7 +36,7 @@ router.delete('/:id', async(req, res) => {
 });
 
 
-//delete all posts for a sepecific user id
+//delete all like for a sepecific user id
 router.delete('/', async(req, res) => {
     const userId=req.body.userId;
     var condition = userId ? { userId: { [Op.like]: `%${userId}%` } } : null;

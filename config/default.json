@@ -6,17 +6,23 @@
     "database": "b7ntfkr2a8u3hwajcm3s",
     "dialect": "mysql"
   },
+  "cloudinary.config" :{
+    "cloud_name": "vic2021"  ,
+    "api_key":"434786848137159 ",
+   "api_secret":"2SNCTyZOAMHIKCtYRmVuXqy-o_Y"     
+  },
+
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
+    "password": "12345",
+    "database": "vic",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
+    "password": "12345",
+    "database": "vic",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
