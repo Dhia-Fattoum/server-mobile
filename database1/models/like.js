@@ -10,24 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Like.belongsTo(models.Post, {
-        foreignKey: 'PostId',
-        onDelete: 'CASCADE'
-      })
-      //add relation
-      Like.belongsTo(models.User, {
-        foreignKey: 'userId',
-        onDelete: 'CASCADE'
-      })
+      // define association here
     }
   };
   Like.init({
-    Like:DataTypes.BOOLEAN,
     PostId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    status: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName:'Like',
+    modelName: 'Like',
   });
   return Like;
 };

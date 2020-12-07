@@ -16,7 +16,7 @@ router.get("/mymessage/:id", async (req, res) => {
       include: {
         model: User,
         required: true,
-        attributes: ["profileImage"],
+        attributes: ["profileImage","userName"],
       },
     });
     console.log(message);

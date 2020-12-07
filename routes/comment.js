@@ -11,14 +11,23 @@ router.get('/', async(req, res) => {
 })
 
 
-//get comments by post id
+//get comments by post id and userid
+
 router.get('/:id', async(req, res) => {
     await Comment.findAll({where: { PostId: req.params.id},include:[{model:Post,required:true},{model: User,required:true, attributes: ["userName","profileImage"]}]}).then((comments) => res.json(comments))
         .catch((err) => console.log(err))
 })
 
 
-//add a comment
+router.get("/showComments/:PostId", async (req, res) => {
+    await Comment.findAll({
+      where: { PostId: req.params.PostId },include: {model:Post,required: true},
+    }).then((post) => res.json(post))
+      .catch((err) => console.log(err));
+  });
+
+
+//add a comment//
 router.post('/addComment', async(req, res) => {
     console.log(req.body)
     await Comment.create({
