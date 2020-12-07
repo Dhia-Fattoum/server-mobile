@@ -65,6 +65,7 @@ router.get('/', async (req, res) => {
                country: req.body.country,
                zipCode: req.body.zipCode
     }).then((user) => res.json(user));
+    console.log(user);
   });
 
 
