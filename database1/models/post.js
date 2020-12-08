@@ -13,17 +13,19 @@ module.exports = (sequelize, DataTypes) => {
       
     }),
     Post.hasMany(models.Like, {
-      foreignKey: 'PostId'
+      foreignKey: 'userId'
     }),
     Post.hasMany(models.Comment, {
-      foreignKey:'PostId'
+      foreignKey:'userId'
     })
   }
   };
   Post.init({
     content: DataTypes.STRING,
     userId: DataTypes.INTEGER,
-    fileUrl: DataTypes.STRING
+    fileUrl: DataTypes.STRING,
+    commentId: DataTypes.INTEGER,
+    likeId: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Post',
